@@ -1,6 +1,5 @@
 package com.githubuserbranchesresttempapi.domain.proxy;
 
-import com.githubuserbranchesresttempapi.controller.GetGithubBranchResponseDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -10,8 +9,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
 
 @Component
 @Log4j2
@@ -48,7 +45,7 @@ public class GithubProxy {
         return null;
     }
 
-    public List<GetGithubBranchResponseDto> getBranches(String owner, String repo) {
+    public String getBranches(String owner, String repo) {
         //https://api.github.com -> /repos/{owner}/{repo}/branches
         UriComponentsBuilder builder = UriComponentsBuilder
                 .newInstance()

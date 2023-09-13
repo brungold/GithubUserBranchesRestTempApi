@@ -1,10 +1,12 @@
 package com.githubuserbranchesresttempapi.controller;
 
 import com.githubuserbranchesresttempapi.controller.dto.BranchInfoResponseDto;
+import com.githubuserbranchesresttempapi.controller.dto.GetGithubBranchResponseDto;
 import com.githubuserbranchesresttempapi.controller.dto.RepositoryResponseDto;
 import com.githubuserbranchesresttempapi.domain.dto.UserNameResponseDto;
 import com.githubuserbranchesresttempapi.domain.proxy.GithubProxy;
 import com.githubuserbranchesresttempapi.domain.service.GithubService;
+import com.githubuserbranchesresttempapi.domain.service.GithubServiceMapper;
 import com.githubuserbranchesresttempapi.domain.service.GithubUsernameConverter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +22,21 @@ import java.util.stream.Collectors;
 @RestController
 @Log4j2
 public class GithubRestController {
+    public GithubRestController(GithubProxy githubClient, GithubUsernameConverter githubConverterService, GithubService githubService, GithubServiceMapper githubMapper) {
+        this.githubClient = githubClient;
+        this.githubConverterService = githubConverterService;
+        this.githubService = githubService;
+        this.githubMapper = githubMapper;
+    }
+
     private final GithubProxy githubClient;
 
     private final GithubUsernameConverter githubConverterService;
     private final GithubService githubService;
 
-    public GithubRestController(GithubProxy githubClient, GithubUsernameConverter githubConverterService, GithubService githubService) {
-        this.githubClient = githubClient;
-        this.githubConverterService = githubConverterService;
-        this.githubService = githubService;
-    }
+    private final GithubServiceMapper githubMapper;
+
+
 
 
     @GetMapping("/{username}")
@@ -42,21 +49,26 @@ public class GithubRestController {
 
         return ResponseEntity.ok(repositoryResponseList);
     }
+
     private List<RepositoryResponseDto> fetchRepositoryResponses(String username, List<String> repoNames) {
         List<RepositoryResponseDto> repositoryResponseList = new ArrayList<>();
 
         for (String repoName : repoNames) {
             List<GetGithubBranchResponseDto> branches = fetchBranches(username, repoName);
-            List<BranchInfoResponseDto> branchInfoList = createBranchInfoList(branches);
-            RepositoryResponseDto repositoryResponseDto = createRepositoryResponse(repoName, username, branchInfoList);
-            repositoryResponseList.add(repositoryResponseDto);
+            if (branches != null) {
+                List<BranchInfoResponseDto> branchInfoList = createBranchInfoList(branches);
+                RepositoryResponseDto repositoryResponseDto = createRepositoryResponse(repoName, username, branchInfoList);
+                repositoryResponseList.add(repositoryResponseDto);
+            }
         }
 
         return repositoryResponseList;
     }
 
     private List<GetGithubBranchResponseDto> fetchBranches(String username, String repoName) {
-        return githubClient.getBranches(username, repoName);
+        String json = githubClient.getBranches(username, repoName);
+        List<GetGithubBranchResponseDto> branches = githubMapper.mapJsonToGetGithubBranchResponseDto(json);
+        return branches;
     }
 
     private List<BranchInfoResponseDto> createBranchInfoList(List<GetGithubBranchResponseDto> branches) {

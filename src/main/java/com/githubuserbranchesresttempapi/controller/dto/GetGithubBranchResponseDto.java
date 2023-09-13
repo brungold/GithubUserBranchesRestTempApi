@@ -1,4 +1,4 @@
-package com.githubuserbranchesresttempapi.controller;
+package com.githubuserbranchesresttempapi.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.githubuserbranchesresttempapi.controller.dto.CommitInfoResponseDto;

@@ -16,6 +16,9 @@ public class GithubUsernameConverter {
     }
 
     public List<String> convertToRepoNames(List<UserNameResponseDto> repos) {
+//        if (repos == null) {
+//            return null;
+//        }
         List<String> repoNames = repos.stream()
                 .map(UserNameResponseDto::name)
                 .collect(Collectors.toList());
