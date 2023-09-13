@@ -1,4 +1,4 @@
-package com.githubuserbranchesresttempapi.dto;
+package com.githubuserbranchesresttempapi.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

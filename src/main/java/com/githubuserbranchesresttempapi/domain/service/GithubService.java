@@ -1,7 +1,7 @@
-package com.githubuserbranchesresttempapi.dto;
+package com.githubuserbranchesresttempapi.domain.service;
 
-import com.githubuserbranchesresttempapi.GithubProxy;
-import com.githubuserbranchesresttempapi.GithubServiceMapper;
+import com.githubuserbranchesresttempapi.domain.proxy.GithubProxy;
+import com.githubuserbranchesresttempapi.domain.dto.UserNameResponseDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +9,11 @@ import java.util.List;
 
 @Service
 @Log4j2
-public class GihubService {
+public class GithubService {
     private final GithubProxy githubClient;
     private final GithubServiceMapper githubServiceMapper;
 
-    public GihubService(GithubProxy githubClient, GithubServiceMapper githubServiceMapper) {
+    public GithubService(GithubProxy githubClient, GithubServiceMapper githubServiceMapper) {
         this.githubClient = githubClient;
         this.githubServiceMapper = githubServiceMapper;
     }

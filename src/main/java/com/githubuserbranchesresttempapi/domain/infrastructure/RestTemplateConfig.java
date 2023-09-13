@@ -1,4 +1,4 @@
-package com.githubuserbranchesresttempapi;
+package com.githubuserbranchesresttempapi.domain.infrastructure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

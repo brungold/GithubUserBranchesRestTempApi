@@ -1,10 +1,9 @@
-package com.githubuserbranchesresttempapi;
+package com.githubuserbranchesresttempapi.domain.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.githubuserbranchesresttempapi.dto.UserNameResponseDto;
+import com.githubuserbranchesresttempapi.domain.dto.UserNameResponseDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.githubuserbranchesresttempapi;
+package com.githubuserbranchesresttempapi.domain.infrastructure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
