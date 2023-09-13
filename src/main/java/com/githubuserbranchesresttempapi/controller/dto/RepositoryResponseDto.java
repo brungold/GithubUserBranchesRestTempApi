@@ -1,4 +1,6 @@
-package com.githubuserbranchesresttempapi.controller;
+package com.githubuserbranchesresttempapi.controller.dto;
+
+import com.githubuserbranchesresttempapi.controller.dto.BranchInfoResponseDto;
 
 import java.util.List;
 
