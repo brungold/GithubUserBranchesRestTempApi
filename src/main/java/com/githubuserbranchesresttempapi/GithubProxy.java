@@ -44,5 +44,29 @@ public class GithubProxy {
         }
         return null;
     }
+
+    public String getBranches(String owner, String repo) {
+        //https://api.github.com -> /repos/{owner}/{repo}/branches
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .newInstance()
+                .scheme("https")
+                .host(url)
+                .path("/repos/" + owner + "/" + repo + "/branches");
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    builder.build().toUri(),
+                    HttpMethod.GET,
+                    null,
+                    String.class
+            );
+            return response.getBody();
+        } catch (RestClientResponseException exception) {
+            log.error(exception.getStatusText() + " " + exception.getStatusCode().value());
+        } catch (RestClientException exception) {
+            log.error(exception.getMessage());
+        }
+        return null;
+    }
 }
+
 
