@@ -15,7 +15,7 @@ public class InvalidHeaderHandler {
     @ExceptionHandler(InvalidAcceptHeaderException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public InvalidAcceptHeaderResponseDto handleHeaderException(InvalidAcceptHeaderException exception){
+    public InvalidAcceptHeaderResponseDto handleHeaderException(InvalidAcceptHeaderException exception) {
         log.warn("Invalid Accept header");
         return new InvalidAcceptHeaderResponseDto(HttpStatus.NOT_ACCEPTABLE, exception.getMessage());
     }

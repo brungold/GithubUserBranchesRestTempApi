@@ -35,7 +35,7 @@ public class GithubServiceMapper {
         try {
             TypeReference<List<GetGithubBranchResponseDto>> typeReference = new TypeReference<>() {
             };
-            return  objectMapper.readValue(json, typeReference);
+            return objectMapper.readValue(json, typeReference);
         } catch (JsonProcessingException e) {
             log.error("GithubSeviceMapper could not map json", e.getMessage());
             return Collections.emptyList();
