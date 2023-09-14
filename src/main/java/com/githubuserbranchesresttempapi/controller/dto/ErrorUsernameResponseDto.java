@@ -1,4 +1,4 @@
-package com.githubuserbranchesresttempapi.controller.error;
+package com.githubuserbranchesresttempapi.controller.dto;
 
 import org.springframework.http.HttpStatus;
 

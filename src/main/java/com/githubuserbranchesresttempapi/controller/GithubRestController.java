@@ -3,6 +3,7 @@ package com.githubuserbranchesresttempapi.controller;
 import com.githubuserbranchesresttempapi.controller.dto.BranchInfoResponseDto;
 import com.githubuserbranchesresttempapi.controller.dto.GetGithubBranchResponseDto;
 import com.githubuserbranchesresttempapi.controller.dto.RepositoryResponseDto;
+import com.githubuserbranchesresttempapi.controller.error.InvalidAcceptHeaderException;
 import com.githubuserbranchesresttempapi.controller.error.UsernameNotFoundException;
 import com.githubuserbranchesresttempapi.domain.dto.UserNameResponseDto;
 import com.githubuserbranchesresttempapi.domain.proxy.GithubProxy;
