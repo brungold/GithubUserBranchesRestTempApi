@@ -3,6 +3,7 @@ package com.githubuserbranchesresttempapi.controller;
 import com.githubuserbranchesresttempapi.controller.dto.BranchInfoResponseDto;
 import com.githubuserbranchesresttempapi.controller.dto.GetGithubBranchResponseDto;
 import com.githubuserbranchesresttempapi.controller.dto.RepositoryResponseDto;
+import com.githubuserbranchesresttempapi.controller.error.UsernameNotFoundException;
 import com.githubuserbranchesresttempapi.domain.dto.UserNameResponseDto;
 import com.githubuserbranchesresttempapi.domain.proxy.GithubProxy;
 import com.githubuserbranchesresttempapi.domain.service.GithubService;
@@ -22,13 +23,6 @@ import java.util.stream.Collectors;
 @RestController
 @Log4j2
 public class GithubRestController {
-    public GithubRestController(GithubProxy githubClient, GithubUsernameConverter githubConverterService, GithubService githubService, GithubServiceMapper githubMapper) {
-        this.githubClient = githubClient;
-        this.githubConverterService = githubConverterService;
-        this.githubService = githubService;
-        this.githubMapper = githubMapper;
-    }
-
     private final GithubProxy githubClient;
 
     private final GithubUsernameConverter githubConverterService;
@@ -36,12 +30,19 @@ public class GithubRestController {
 
     private final GithubServiceMapper githubMapper;
 
-
-
+    public GithubRestController(GithubProxy githubClient, GithubUsernameConverter githubConverterService, GithubService githubService, GithubServiceMapper githubMapper) {
+        this.githubClient = githubClient;
+        this.githubConverterService = githubConverterService;
+        this.githubService = githubService;
+        this.githubMapper = githubMapper;
+    }
 
     @GetMapping("/{username}")
     public ResponseEntity<List<RepositoryResponseDto>> getUserRepositories(@PathVariable String username, @RequestHeader("Accept") String acceptHeader) {
         List<UserNameResponseDto> userRepos = githubService.getReposName(username);
+        if(userRepos == null){
+            throw new UsernameNotFoundException(username);
+        }
 
         List<String> repoNames = githubConverterService.convertToRepoNames(userRepos);
 
