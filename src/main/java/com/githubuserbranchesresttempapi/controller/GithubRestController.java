@@ -39,6 +39,10 @@ public class GithubRestController {
 
     @GetMapping("/{username}")
     public ResponseEntity<List<RepositoryResponseDto>> getUserRepositories(@PathVariable String username, @RequestHeader("Accept") String acceptHeader) {
+        if (acceptHeader.equals("application/xml")) {
+            throw new InvalidAcceptHeaderException("Invalid Accept header");
+        }
+
         List<UserNameResponseDto> userRepos = githubService.getReposName(username);
         if(userRepos == null){
             throw new UsernameNotFoundException(username);
